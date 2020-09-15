@@ -21,31 +21,21 @@ public class Circle extends Shape
     }
 
 
-    private final float radius;
-
-
     public Circle(float radius, float mass, float inertia)
     {
-        super(mass, inertia);
-        this.radius = radius;
+        super(mass, inertia, radius);
     }
 
 
     @Override
     public void render(GraphicsContext gc, World world)
     {
-        float screenRadius = world.toScreen(radius);
+        float screenRadius = world.toScreen(getRadius());
         float screenDiameter = screenRadius * 2;
 
         // Draw circle
         gc.strokeOval(-screenRadius, -screenRadius, screenDiameter, screenDiameter);
         gc.strokeLine(0, 0, screenRadius, 0); // Line to show rotation
-    }
-
-
-    public float getRadius()
-    {
-        return radius;
     }
 
 }

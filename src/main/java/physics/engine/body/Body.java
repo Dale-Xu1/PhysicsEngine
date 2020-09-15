@@ -29,8 +29,24 @@ public class Body
 
     public void integrate(float dt, Vector2 gravity)
     {
-        // Integrate body
+        // TODO: Integration
     }
+
+
+    public boolean boundsIntersect(Body body)
+    {
+        // Test if bounding circles intersect
+        float distanceSq = position.sub(body.position).magSq();
+        float radius = shape.getRadius() + body.shape.getRadius();
+
+        return (distanceSq < radius * radius);
+    }
+
+    public void testCollision(Body body)
+    {
+        // TODO: Collision detection
+    }
+
 
     public void render(GraphicsContext gc, World world)
     {

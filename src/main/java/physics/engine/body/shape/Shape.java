@@ -9,8 +9,10 @@ public abstract class Shape
     private final float inverseMass;
     private final float inverseInertia;
 
+    private final float radius;
 
-    public Shape(float mass, float inertia)
+
+    public Shape(float mass, float inertia, float radius)
     {
         if (mass > 0)
         {
@@ -24,6 +26,8 @@ public abstract class Shape
             inverseMass = 0;
             inverseInertia = 0;
         }
+
+        this.radius = radius;
     }
 
 
@@ -38,6 +42,11 @@ public abstract class Shape
     public float getInverseInertia()
     {
         return inverseInertia;
+    }
+
+    public float getRadius()
+    {
+        return radius;
     }
 
 }

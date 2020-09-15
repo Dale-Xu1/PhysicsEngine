@@ -9,6 +9,7 @@ public class Polygon extends Shape
 
     public static Polygon create(Vector2[] vertices, float density)
     {
+        // TODO: Implement polygon mass calculation
         return null;
     }
 
@@ -33,10 +34,15 @@ public class Polygon extends Shape
         };
 
         // Calculate mass and inertia
-        float mass = (width * height) * density;
-        float inertia = mass * ((width * width) + (height * height)) / 12;
+        float magSq = (width * width) + (height * height);
 
-        return new Polygon(vertices, mass, inertia);
+        float mass = (width * height) * density;
+        float inertia = mass * magSq / 12;
+
+        // Calculate radius for broad phase collision detection
+        float radius = (float) Math.sqrt(magSq) / 2;
+
+        return new Polygon(vertices, mass, inertia, radius);
     }
 
     public static Polygon createRectangle(float width, float height)
@@ -50,9 +56,9 @@ public class Polygon extends Shape
 
 
     @SuppressWarnings("SuspiciousNameCombination")
-    public Polygon(Vector2[] vertices, float mass, float inertia)
+    public Polygon(Vector2[] vertices, float mass, float inertia, float radius)
     {
-        super(mass, inertia);
+        super(mass, inertia, radius);
 
         this.vertices = vertices;
         normals = new Vector2[vertices.length];
