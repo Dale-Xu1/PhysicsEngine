@@ -1,6 +1,10 @@
 package physics.engine;
 
+import physics.engine.body.Body;
 import physics.engine.math.Vector2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class World
 {
@@ -10,6 +14,8 @@ public class World
 
     private final Vector2 gravity;
     private final float scale;
+
+    private final List<Body> bodies = new ArrayList<>();
 
 
     public World(Vector2 gravity, float scale)
@@ -50,6 +56,17 @@ public class World
     public Vector2 getGravity()
     {
         return gravity;
+    }
+
+
+    public void addBody(Body body)
+    {
+        bodies.add(body);
+    }
+
+    public List<Body> getBodies()
+    {
+        return bodies;
     }
 
 }

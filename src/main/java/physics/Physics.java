@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import physics.engine.Engine;
 import physics.engine.World;
+import physics.engine.body.Body;
 
 public class Physics extends Parent
 {
@@ -31,7 +32,7 @@ public class Physics extends Parent
     }
 
     private final GraphicsContext gc;
-    private final World world = new World();
+    private final World world = new World(); // Create world
 
 
     public Physics()
@@ -54,8 +55,14 @@ public class Physics extends Parent
 
     private void render()
     {
+        // Center origin
         gc.translate(WIDTH / 2f, HEIGHT / 2f);
-        gc.fillRect(0, 0, 100, 100);
+
+        // Render bodies
+        for (Body body : world.getBodies())
+        {
+            body.render(gc, world);
+        }
     }
 
 }

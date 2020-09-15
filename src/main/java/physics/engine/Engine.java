@@ -1,6 +1,8 @@
 package physics.engine;
 
 import javafx.animation.AnimationTimer;
+import physics.engine.body.Body;
+import physics.engine.math.Vector2;
 
 public class Engine
 {
@@ -66,6 +68,13 @@ public class Engine
 
     private void update()
     {
+        // Integrate bodies
+        Vector2 gravity = world.getGravity();
+
+        for (Body body : world.getBodies())
+        {
+            body.integrate(delta, gravity);
+        }
     }
 
 }
