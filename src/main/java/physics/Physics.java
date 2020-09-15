@@ -4,6 +4,8 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import physics.engine.Engine;
+import physics.engine.World;
 
 public class Physics extends Parent
 {
@@ -29,6 +31,7 @@ public class Physics extends Parent
     }
 
     private final GraphicsContext gc;
+    private final World world = new World();
 
 
     public Physics()
@@ -38,6 +41,10 @@ public class Physics extends Parent
         getChildren().add(canvas);
 
         gc = canvas.getGraphicsContext2D();
+
+        // Create engine
+        Engine engine = new Engine(world);
+        engine.start();
 
         // Start animation
         Animation animation = new Animation();
