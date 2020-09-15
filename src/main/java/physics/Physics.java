@@ -7,6 +7,8 @@ import javafx.scene.canvas.GraphicsContext;
 import physics.engine.Engine;
 import physics.engine.World;
 import physics.engine.body.Body;
+import physics.engine.body.shape.Shape;
+import physics.engine.math.Vector2;
 
 public class Physics extends Parent
 {
@@ -42,14 +44,20 @@ public class Physics extends Parent
         getChildren().add(canvas);
 
         gc = canvas.getGraphicsContext2D();
-
-        // Create engine
-        Engine engine = new Engine(world);
-        engine.start();
+        createWorld();
 
         // Start animation
         Animation animation = new Animation();
         animation.start();
+    }
+
+    private void createWorld()
+    {
+        world.addBody(new Body(new Vector2(5, 2), (float) Math.PI / 3, Shape.createCircle(2)));
+
+        // Create engine
+        Engine engine = new Engine(world);
+        engine.start();
     }
 
 
