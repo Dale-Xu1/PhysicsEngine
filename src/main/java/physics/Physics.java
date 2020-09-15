@@ -9,6 +9,7 @@ import physics.engine.World;
 import physics.engine.body.Body;
 import physics.engine.body.shape.Circle;
 import physics.engine.body.shape.Polygon;
+import physics.engine.body.shape.Rectangle;
 import physics.engine.math.Vector2;
 
 public class Physics extends Parent
@@ -55,7 +56,7 @@ public class Physics extends Parent
     private void createWorld()
     {
         world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(2)));
-        world.addBody(new Body(new Vector2(-1, 0), -1.3f, Polygon.createRectangle(4, 2)));
+        world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
 
         // Create engine
         Engine engine = new Engine(world);
