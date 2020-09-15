@@ -6,6 +6,21 @@ import physics.engine.World;
 public class Circle extends Shape
 {
 
+    public static Circle create(float radius, float density)
+    {
+        // Calculate mass and inertia based on density
+        float mass = (float) Math.PI * (radius * radius) * density;
+        float inertia = mass * (radius * radius) / 2;
+
+        return new Circle(radius, mass, inertia);
+    }
+
+    public static Circle create(float radius)
+    {
+        return create(radius, 1);
+    }
+
+
     private final float radius;
 
 
@@ -19,11 +34,12 @@ public class Circle extends Shape
     @Override
     public void render(GraphicsContext gc, World world)
     {
-        float radius = world.toScreen(this.radius);
+        float screenRadius = world.toScreen(radius);
+        float screenDiameter = screenRadius * 2;
 
         // Draw circle
-        gc.strokeOval(-radius, -radius, radius * 2, radius * 2);
-        gc.strokeLine(0, 0, radius, 0); // Line to show rotation
+        gc.strokeOval(-screenRadius, -screenRadius, screenDiameter, screenDiameter);
+        gc.strokeLine(0, 0, screenRadius, 0); // Line to show rotation
     }
 
 

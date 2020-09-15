@@ -35,13 +35,13 @@ public class Body
     public void render(GraphicsContext gc, World world)
     {
         // Convert to screen coordinates
-        Vector2 position = world.toScreen(this.position);
-        float rotation = -this.rotation * 180 / (float) Math.PI;
+        Vector2 screenPosition = world.toScreen(position);
+        float screenRotation = -rotation * 180 / (float) Math.PI;
 
         // Apply transformations
         gc.save();
-        gc.translate(position.x, position.y);
-        gc.rotate(rotation);
+        gc.translate(screenPosition.x, screenPosition.y);
+        gc.rotate(screenRotation);
 
         // Render shape
         shape.render(gc, world);

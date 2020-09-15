@@ -6,21 +6,6 @@ import physics.engine.World;
 public abstract class Shape
 {
 
-    public static Circle createCircle(float radius, float density)
-    {
-        // Calculate mass and inertia based on density
-        float mass = (float) Math.PI * (radius * radius) * density;
-        float inertia = mass * (radius * radius) / 12;
-
-        return new Circle(radius, mass, inertia);
-    }
-
-    public static Circle createCircle(float radius)
-    {
-        return createCircle(radius, 1);
-    }
-
-
     private final float inverseMass;
     private final float inverseInertia;
 
