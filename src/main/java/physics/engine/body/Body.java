@@ -8,8 +8,8 @@ import physics.engine.math.Vector2;
 public class Body
 {
 
-    private Vector2 position;
-    private float rotation;
+    protected Vector2 position; // TODO: Body movement (Make private)
+    protected float rotation;
 
     private final Shape shape;
 
@@ -40,11 +40,6 @@ public class Body
         float radius = shape.getRadius() + body.shape.getRadius();
 
         return (distanceSq < radius * radius);
-    }
-
-    public void testCollision(Body body)
-    {
-        // TODO: Collision detection
     }
 
 
