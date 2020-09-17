@@ -60,8 +60,9 @@ public class Physics extends Parent
     private void createWorld()
     {
         world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(3)));
-        world.addBody(new MovableBody(new Vector2(5, 2), Circle.create(2)));
         world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
+        world.addBody(new MovableBody(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
+//        world.addBody(new MovableBody(new Vector2(5, 2), Circle.create(2)));
 
         // Start engine
         engine.start();

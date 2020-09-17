@@ -8,8 +8,9 @@ import physics.engine.math.Vector2;
 public class Body
 {
 
-    private Vector2 position;
-    private float rotation;
+    // TODO: Make private
+    protected Vector2 position;
+    protected float rotation;
 
     private final Shape shape;
 
@@ -30,19 +31,6 @@ public class Body
     public void integrate(float dt, Vector2 gravity)
     {
         // TODO: Integration
-    }
-
-
-    // TODO: Make private
-    protected void translate(Vector2 vector)
-    {
-        position = position.add(vector);
-    }
-
-    protected void rotate(float angle)
-    {
-        rotation += angle;
-        shape.setRotation(rotation);
     }
 
 

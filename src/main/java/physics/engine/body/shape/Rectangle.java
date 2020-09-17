@@ -12,12 +12,12 @@ public class Rectangle
         float halfHeight = height / 2;
 
         Vector2[] vertices = new Vector2[]
-            {
-                new Vector2(-halfWidth, -halfHeight),
-                new Vector2(halfWidth, -halfHeight),
-                new Vector2(halfWidth, halfHeight),
-                new Vector2(-halfWidth, halfHeight),
-            };
+        {
+            new Vector2(-halfWidth, -halfHeight),
+            new Vector2(halfWidth, -halfHeight),
+            new Vector2(halfWidth, halfHeight),
+            new Vector2(-halfWidth, halfHeight),
+        };
 
         // Calculate mass and inertia
         float magSq = (width * width) + (height * height);

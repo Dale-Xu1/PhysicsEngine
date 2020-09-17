@@ -28,9 +28,6 @@ public class Circle extends Shape
 
 
     @Override
-    public void setRotation(float angle) { } // A circle is the same in all orientations
-
-    @Override
     public void render(GraphicsContext gc, World world)
     {
         float screenRadius = world.toScreen(getRadius());

@@ -25,12 +25,12 @@ public class MovableBody extends Body
 
         dt *= 8;
 
-        if (Main.UP) translate(new Vector2(0, 1).mult(dt));
-        if (Main.DOWN) translate(new Vector2(0, -1).mult(dt));
-        if (Main.LEFT) translate(new Vector2(-1, 0).mult(dt));
-        if (Main.RIGHT) translate(new Vector2(1, 0).mult(dt));
-        if (Main.CW) rotate(-0.5f * dt);
-        if (Main.CCW) rotate(0.5f * dt);
+        if (Main.UP) position = position.add(new Vector2(0, 1).mult(dt));
+        if (Main.DOWN) position = position.add(new Vector2(0, -1).mult(dt));
+        if (Main.LEFT) position = position.add(new Vector2(-1, 0).mult(dt));
+        if (Main.RIGHT) position = position.add(new Vector2(1, 0).mult(dt));
+        if (Main.CW) rotation -= 0.5f * dt;
+        if (Main.CCW) rotation += 0.5f * dt;
     }
 
 }
