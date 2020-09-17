@@ -27,11 +27,6 @@ public class Matrix2
         m11 = cos;
     }
 
-    public Matrix2()
-    {
-        this(1, 0, 0, 1);
-    }
-
 
     public Vector2 mult(Vector2 vector)
     {

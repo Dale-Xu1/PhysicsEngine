@@ -2,6 +2,8 @@ package physics.engine.body.shape;
 
 import javafx.scene.canvas.GraphicsContext;
 import physics.engine.World;
+import physics.engine.body.Body;
+import physics.engine.math.Matrix2;
 import physics.engine.math.Vector2;
 
 public class Polygon extends Shape
@@ -85,14 +87,40 @@ public class Polygon extends Shape
     }
 
 
-    public Vector2[] getVertices()
+    public Vector2[] getVertices(Body body)
     {
-        return vertices;
+        Vector2 position = body.getPosition();
+        Matrix2 rotation = new Matrix2(body.getRotation());
+
+        Vector2[] transformedVertices = new Vector2[vertices.length];
+
+        for (int i = 0; i < transformedVertices.length; i++)
+        {
+            // Transform vertices
+            Vector2 vertex = vertices[i];
+            Vector2 transformed = position.add(rotation.mult(vertex));
+
+            transformedVertices[i] = transformed;
+        }
+
+        return transformedVertices;
     }
 
-    public Vector2[] getNormals()
+    public Vector2[] getNormals(Body body)
     {
-        return normals;
+        Matrix2 rotation = new Matrix2(body.getRotation());
+        Vector2[] rotatedNormals = new Vector2[normals.length];
+
+        for (int i = 0; i < rotatedNormals.length; i++)
+        {
+            // Rotate normals
+            Vector2 normal = normals[i];
+            Vector2 rotated = rotation.mult(normal);
+
+            rotatedNormals[i] = rotated;
+        }
+
+        return rotatedNormals;
     }
 
 }
