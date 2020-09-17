@@ -15,6 +15,9 @@ public class Main extends Application
     public static boolean LEFT = false;
     public static boolean RIGHT = false;
 
+    public static boolean CW = false;
+    public static boolean CCW = false;
+
 
     public static void main(String[] args)
     {
@@ -34,6 +37,8 @@ public class Main extends Application
             else if (e.getCode() == KeyCode.S) DOWN = true;
             else if (e.getCode() == KeyCode.A) LEFT = true;
             else if (e.getCode() == KeyCode.D) RIGHT = true;
+            else if (e.getCode() == KeyCode.RIGHT) CW = true;
+            else if (e.getCode() == KeyCode.LEFT) CCW = true;
         });
 
         scene.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent e) ->
@@ -42,6 +47,8 @@ public class Main extends Application
             else if (e.getCode() == KeyCode.S) DOWN = false;
             else if (e.getCode() == KeyCode.A) LEFT = false;
             else if (e.getCode() == KeyCode.D) RIGHT = false;
+            else if (e.getCode() == KeyCode.RIGHT) CW = false;
+            else if (e.getCode() == KeyCode.LEFT) CCW = false;
         });
 
         stage.setTitle(Physics.TITLE);

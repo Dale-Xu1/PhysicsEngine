@@ -7,6 +7,14 @@ public class Matrix2
     public final float m10, m11;
 
 
+    public Matrix2(float m00, float m01, float m10, float m11)
+    {
+        this.m00 = m00;
+        this.m01 = m01;
+        this.m10 = m10;
+        this.m11 = m11;
+    }
+
     public Matrix2(float angle)
     {
         // Create rotation matrix
@@ -17,6 +25,11 @@ public class Matrix2
         m01 = -sin;
         m10 = sin;
         m11 = cos;
+    }
+
+    public Matrix2()
+    {
+        this(1, 0, 0, 1);
     }
 
 

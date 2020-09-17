@@ -31,6 +31,8 @@ public abstract class Shape
     }
 
 
+    public abstract void setRotation(float angle);
+
     public abstract void render(GraphicsContext gc, World world);
 
 

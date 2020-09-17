@@ -2,6 +2,7 @@ package physics.engine.body.shape;
 
 import javafx.scene.canvas.GraphicsContext;
 import physics.engine.World;
+import physics.engine.math.Matrix2;
 import physics.engine.math.Vector2;
 
 public class Polygon extends Shape
@@ -21,6 +22,8 @@ public class Polygon extends Shape
 
     private final Vector2[] vertices;
     private final Vector2[] normals;
+
+    private Matrix2 rotation = new Matrix2(); // Identity matrix
 
 
     @SuppressWarnings("SuspiciousNameCombination")
@@ -45,6 +48,12 @@ public class Polygon extends Shape
         }
     }
 
+
+    @Override
+    public void setRotation(float angle)
+    {
+        rotation = new Matrix2(angle);
+    }
 
     @Override
     public void render(GraphicsContext gc, World world)
@@ -79,6 +88,11 @@ public class Polygon extends Shape
     public Vector2[] getNormals()
     {
         return normals;
+    }
+
+    public Matrix2 getRotation()
+    {
+        return rotation;
     }
 
 }
