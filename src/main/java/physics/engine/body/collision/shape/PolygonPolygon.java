@@ -2,44 +2,10 @@ package physics.engine.body.collision.shape;
 
 import physics.engine.body.Body;
 import physics.engine.body.collision.Collision;
-import physics.engine.body.shape.Polygon;
-import physics.engine.math.Matrix2;
 import physics.engine.math.Vector2;
 
 public class PolygonPolygon implements ShapeCollision
 {
-
-    private static class TransformedPolygon
-    {
-        private final Vector2[] vertices;
-        private final Vector2[] normals;
-
-        public TransformedPolygon(Body body)
-        {
-            // Get body data
-            Polygon polygon = (Polygon) body.getShape();
-
-            Vector2 position = body.getPosition();
-            Matrix2 rotation = new Matrix2(body.getRotation());
-
-            // Get polygon data
-            Vector2[] polygonVertices = polygon.getVertices();
-            Vector2[] polygonNormals = polygon.getNormals();
-
-            vertices = new Vector2[polygonVertices.length];
-            normals = new Vector2[polygonNormals.length];
-
-            for (int i = 0; i < vertices.length; i++)
-            {
-                Vector2 vertex = polygonVertices[i];
-                Vector2 normal = polygonNormals[i];
-
-                // Transform vertices and rotate normals
-                vertices[i] = position.add(rotation.mult(vertex));
-                normals[i] = rotation.mult(normal);
-            }
-        }
-    }
 
     private static class SupportPoint
     {
@@ -84,12 +50,15 @@ public class PolygonPolygon implements ShapeCollision
     {
         SupportPoint minSupport = null;
 
-        for (int i = 0; i < a.vertices.length; i++)
-        {
-            Vector2 vertex = a.vertices[i];
-            Vector2 normal = a.normals[i];
+        Vector2[] vertices = a.getVertices();
+        Vector2[] normals = a.getNormals();
 
-            SupportPoint support = findSupportPoint(b.vertices, normal, vertex);
+        for (int i = 0; i < vertices.length; i++)
+        {
+            Vector2 vertex = vertices[i];
+            Vector2 normal = normals[i];
+
+            SupportPoint support = findSupportPoint(b.getVertices(), normal, vertex);
 
             // If one axis results in no collision, stop checking other axis
             if (support == null) return null;

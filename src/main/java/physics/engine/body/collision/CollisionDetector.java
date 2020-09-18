@@ -2,6 +2,7 @@ package physics.engine.body.collision;
 
 import physics.engine.body.Body;
 import physics.engine.body.collision.shape.CircleCircle;
+import physics.engine.body.collision.shape.PolygonCircle;
 import physics.engine.body.collision.shape.PolygonPolygon;
 import physics.engine.body.shape.Circle;
 import physics.engine.body.shape.Polygon;
@@ -12,6 +13,7 @@ public class CollisionDetector
 
     private final CircleCircle circleCircle = new CircleCircle();
     private final PolygonPolygon polygonPolygon = new PolygonPolygon();
+    private final PolygonCircle polygonCircle = new PolygonCircle();
 
 
     public Collision testCollision(Body a, Body b)
@@ -27,15 +29,14 @@ public class CollisionDetector
             }
             else if (shapeB instanceof Polygon)
             {
-                return null;
-                // TODO: Circle-polygon collision detection
+                return polygonCircle.testCollision(a, b);
             }
         }
         else if (shapeA instanceof Polygon)
         {
             if (shapeB instanceof Circle)
             {
-                return null;
+                return polygonCircle.testCollision(a, b);
             }
             else if (shapeB instanceof Polygon)
             {
