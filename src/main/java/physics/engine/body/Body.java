@@ -8,6 +8,11 @@ import physics.engine.math.Vector2;
 public class Body
 {
 
+    private static final float ROTATION = 0;
+    private static final float FRICTION = 0.8f;
+    private static final float RESTITUTION = 0.2f;
+
+
     private Vector2 position;
     private Vector2 velocity = new Vector2(0, 0);
     private Vector2 acceleration = new Vector2(0, 0);
@@ -16,19 +21,29 @@ public class Body
     private float angularVelocity = 0;
     private float angularAcceleration = 0;
 
+    private final float friction;
+    private final float restitution;
+
     private final Shape shape;
 
 
-    public Body(Vector2 position, float rotation, Shape shape)
+    public Body(Vector2 position, float rotation, float friction, float restitution, Shape shape)
     {
         this.position = position;
         this.rotation = rotation;
+        this.friction = friction;
+        this.restitution = restitution;
         this.shape = shape;
+    }
+
+    public Body(Vector2 position, float rotation, Shape shape)
+    {
+        this(position, rotation, FRICTION, RESTITUTION, shape);
     }
 
     public Body(Vector2 position, Shape shape)
     {
-        this(position, 0, shape);
+        this(position, ROTATION, shape);
     }
 
 
@@ -98,10 +113,32 @@ public class Body
         return position;
     }
 
+    public Vector2 getVelocity()
+    {
+        return velocity;
+    }
+
     public float getRotation()
     {
         return rotation;
     }
+
+    public float getAngularVelocity()
+    {
+        return angularVelocity;
+    }
+
+
+    public float getFriction()
+    {
+        return friction;
+    }
+
+    public float getRestitution()
+    {
+        return restitution;
+    }
+
 
     public Shape getShape()
     {
