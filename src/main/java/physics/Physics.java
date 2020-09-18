@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import physics.engine.Engine;
 import physics.engine.World;
 import physics.engine.body.Body;
-import physics.engine.body.MovableBody;
 import physics.engine.body.shape.Circle;
 import physics.engine.body.shape.Polygon;
 import physics.engine.body.shape.Rectangle;
@@ -59,14 +58,13 @@ public class Physics extends Parent
 
     private void createWorld()
     {
-        // TODO: Infinite mass vs infinite mass
         world.addBody(new Body(new Vector2(0, -15), Rectangle.createStatic(40, 1)));
 
         world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(3)));
         world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
 
 //        world.addBody(new MovableBody(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
-        world.addBody(new MovableBody(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
 //        world.addBody(new MovableBody(new Vector2(5, 2), Circle.create(2)));
 
         // Start engine
