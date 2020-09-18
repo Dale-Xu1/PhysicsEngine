@@ -8,9 +8,8 @@ import physics.engine.math.Vector2;
 public class Body
 {
 
-    // TODO: Make private
-    protected Vector2 position;
-    protected float rotation;
+    private Vector2 position;
+    private float rotation;
 
     private final Shape shape;
 
@@ -31,6 +30,17 @@ public class Body
     public void integrate(float dt, Vector2 gravity)
     {
         // TODO: Integration
+    }
+
+
+    public void move(Vector2 vector)
+    {
+        position = position.add(vector);
+    }
+
+    public void rotate(float angle)
+    {
+        rotation += angle;
     }
 
 
@@ -57,7 +67,6 @@ public class Body
 
         // Render shape
         shape.render(gc, world);
-
         gc.restore();
     }
 

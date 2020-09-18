@@ -10,6 +10,7 @@ import physics.engine.body.Body;
 import physics.engine.body.MovableBody;
 import physics.engine.body.collision.Collision;
 import physics.engine.body.shape.Circle;
+import physics.engine.body.shape.Polygon;
 import physics.engine.body.shape.Rectangle;
 import physics.engine.math.Vector2;
 
@@ -61,7 +62,9 @@ public class Physics extends Parent
     {
         world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(3)));
         world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
-        world.addBody(new MovableBody(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
+
+//        world.addBody(new MovableBody(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
+        world.addBody(new MovableBody(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
 //        world.addBody(new MovableBody(new Vector2(5, 2), Circle.create(2)));
 
         // Start engine
@@ -78,11 +81,6 @@ public class Physics extends Parent
         for (Body body : world.getBodies())
         {
             body.render(gc, world);
-        }
-
-        for (Collision collision : engine.collisions)
-        {
-            collision.render(gc, world);
         }
     }
 

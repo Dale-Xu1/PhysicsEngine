@@ -1,7 +1,6 @@
 package physics.engine.body.collision;
 
-import javafx.scene.canvas.GraphicsContext;
-import physics.engine.World;
+import physics.engine.body.Body;
 import physics.engine.math.Vector2;
 
 public class Collision
@@ -35,16 +34,17 @@ public class Collision
     }
 
 
-    public void render(GraphicsContext gc, World world)
+    public void correctPositions(Body a, Body b, float rate)
     {
-        Vector2 startScreen = world.toScreen(start);
-        Vector2 endScreen = world.toScreen(end);
+        float massA = a.getShape().getInverseMass();
+        float massB = b.getShape().getInverseMass();
 
-        gc.moveTo(startScreen.x, startScreen.y);
-        gc.lineTo(endScreen.x, endScreen.y);
-        gc.stroke();
+        // Calculate correction amount
+        float correction = penetration / (massA + massB) * rate; // Multiply by rate to avoid errors
 
-        gc.fillOval(startScreen.x - 2, startScreen.y - 2, 4, 4);
+        // Distribute correction based on mass because of Newton's second law
+        a.move(normal.mult(-correction * massA));
+        b.move(normal.mult(correction * massB));
     }
 
 }

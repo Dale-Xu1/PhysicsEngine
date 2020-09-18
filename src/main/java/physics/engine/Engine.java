@@ -6,13 +6,14 @@ import physics.engine.body.collision.Collision;
 import physics.engine.body.collision.CollisionDetector;
 import physics.engine.math.Vector2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Engine
 {
 
     private static final float DELTA = 0.02f;
+    private static final int ITERATIONS = 15;
+    private static final float RATE = 0.8f;
 
     private class Timer extends AnimationTimer
     {
@@ -52,13 +53,24 @@ public class Engine
     private final float delta; // Used to make sure movements occur in unit rates
     private final int delay;
 
+    private final int iterations;
+    private final float rate;
 
-    public Engine(World world, float delta)
+
+    public Engine(World world, float delta, int iterations, float rate)
     {
         this.world = world;
 
         this.delta = delta;
         this.delay = (int) (delta * 1000);
+
+        this.iterations = iterations;
+        this.rate = rate;
+    }
+
+    public Engine(World world, float delta)
+    {
+        this(world, delta, ITERATIONS, RATE);
     }
 
     public Engine(World world)
@@ -80,15 +92,17 @@ public class Engine
 
     private void update()
     {
-        collisions();
+        for (int i = 0; i < iterations; i++)
+        {
+            collisions();
+        }
+
         integrate();
     }
 
 
     private void collisions()
     {
-        collisions.clear();
-
         // Test collisions for every combination of bodies
         List<Body> bodies = world.getBodies();
 
@@ -104,8 +118,6 @@ public class Engine
         }
     }
 
-    public final List<Collision> collisions = new ArrayList<>();
-
     private void resolveCollision(Body a, Body b)
     {
         // Broad phase
@@ -116,8 +128,8 @@ public class Engine
 
             if (collision != null)
             {
+                collision.correctPositions(a, b, rate);
                 // TODO: Collision resolution
-                collisions.add(collision);
             }
         }
     }
