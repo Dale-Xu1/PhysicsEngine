@@ -34,7 +34,21 @@ public class Collision
     }
 
 
-    public void correctPositions(Body a, Body b, float rate)
+    public void resolveCollision(Body a, Body b, float rate)
+    {
+        // Get inverse masses
+        float massA = a.getShape().getInverseMass();
+        float massB = b.getShape().getInverseMass();
+
+        // Don't resolve collision if both are static
+        if (massA > 0 || massB > 0)
+        {
+            correctPositions(a, b, rate);
+            applyImpulses();
+        }
+    }
+
+    private void correctPositions(Body a, Body b, float rate)
     {
         float massA = a.getShape().getInverseMass();
         float massB = b.getShape().getInverseMass();
@@ -45,6 +59,11 @@ public class Collision
         // Distribute correction based on mass because of Newton's second law
         a.move(normal.mult(-correction * massA));
         b.move(normal.mult(correction * massB));
+    }
+
+    private void applyImpulses()
+    {
+        // TODO: Collision resolution
     }
 
 }

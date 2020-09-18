@@ -15,6 +15,7 @@ public class Engine
     private static final int ITERATIONS = 15;
     private static final float RATE = 0.8f;
 
+
     private class Timer extends AnimationTimer
     {
         private long previousTime;
@@ -128,8 +129,8 @@ public class Engine
 
             if (collision != null)
             {
-                collision.correctPositions(a, b, rate);
-                // TODO: Collision resolution
+                // Resolve collision
+                collision.resolveCollision(a, b, rate);
             }
         }
     }

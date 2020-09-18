@@ -8,7 +8,6 @@ import physics.engine.Engine;
 import physics.engine.World;
 import physics.engine.body.Body;
 import physics.engine.body.MovableBody;
-import physics.engine.body.collision.Collision;
 import physics.engine.body.shape.Circle;
 import physics.engine.body.shape.Polygon;
 import physics.engine.body.shape.Rectangle;
@@ -60,6 +59,9 @@ public class Physics extends Parent
 
     private void createWorld()
     {
+        // TODO: Infinite mass vs infinite mass
+        world.addBody(new Body(new Vector2(0, -15), Rectangle.createStatic(40, 1)));
+
         world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(3)));
         world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
 

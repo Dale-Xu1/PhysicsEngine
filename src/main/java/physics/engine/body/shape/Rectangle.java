@@ -36,4 +36,9 @@ public class Rectangle
         return create(width, height, 1);
     }
 
+    public static Polygon createStatic(float width, float height)
+    {
+        return create(width, height, 0);
+    }
+
 }

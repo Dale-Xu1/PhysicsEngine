@@ -20,6 +20,11 @@ public class Circle extends Shape
         return create(radius, 1);
     }
 
+    public static Circle createStatic(float radius)
+    {
+        return new Circle(radius, 0, 0);
+    }
+
 
     public Circle(float radius, float mass, float inertia)
     {

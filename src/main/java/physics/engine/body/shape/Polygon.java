@@ -23,13 +23,21 @@ public class Polygon extends Shape
 
         float distance = (float) Math.sqrt(maxDistanceSq);
 
+        float mass = density;
+        float inertia = density;
+
         // TODO: Implement polygon mass calculation
-        return new Polygon(vertices, 1, 1, distance);
+        return new Polygon(vertices, mass, inertia, distance);
     }
 
     public static Polygon create(Vector2[] vertices)
     {
         return create(vertices, 1);
+    }
+
+    public static Polygon createStatic(Vector2[] vertices)
+    {
+        return create(vertices, 0);
     }
 
 
