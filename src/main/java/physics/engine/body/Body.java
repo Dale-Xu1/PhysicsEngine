@@ -9,7 +9,12 @@ public class Body
 {
 
     private Vector2 position;
+    private Vector2 velocity = new Vector2(0, 0);
+    private Vector2 acceleration = new Vector2(0, 0);
+
     private float rotation;
+    private float angularVelocity = 0;
+    private float angularAcceleration = 0;
 
     private final Shape shape;
 
@@ -29,7 +34,24 @@ public class Body
 
     public void integrate(float dt, Vector2 gravity)
     {
-        // TODO: Integration
+        float inverseMass = shape.getInverseMass();
+        float inverseInertia = shape.getInverseInertia();
+
+        // Calculate acceleration
+        acceleration = acceleration.mult(inverseMass);
+        acceleration = (inverseMass > 0) ? acceleration.add(gravity) : acceleration; // Add gravity if not static
+
+        // Integrate position
+        velocity = velocity.add(acceleration.mult(dt));
+        move(velocity.mult(dt));
+
+        // Integrate rotation
+        angularVelocity += angularAcceleration * inverseInertia * dt;
+        rotate(angularVelocity * dt);
+
+        // Clear acceleration
+        acceleration = new Vector2(0, 0);
+        angularAcceleration = 0;
     }
 
 
