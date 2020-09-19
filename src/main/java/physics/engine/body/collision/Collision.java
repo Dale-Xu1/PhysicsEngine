@@ -1,6 +1,7 @@
 package physics.engine.body.collision;
 
 import physics.engine.body.Body;
+import physics.engine.body.shape.Shape;
 import physics.engine.math.Vector2;
 
 public class Collision
@@ -44,9 +45,10 @@ public class Collision
         if (massA > 0 || massB > 0)
         {
             correctPositions(a, b, rate);
-            applyImpulses();
+            applyImpulses(a, b);
         }
     }
+
 
     private void correctPositions(Body a, Body b, float rate)
     {
@@ -61,9 +63,74 @@ public class Collision
         b.move(normal.mult(correction * massB));
     }
 
-    private void applyImpulses()
+
+    private void applyImpulses(Body a, Body b)
     {
-        // TODO: Collision resolution
+        // Get vectors pointing to contact
+        Vector2 contact = getContact(a, b);
+
+        Vector2 contactA = contact.sub(a.getPosition());
+        Vector2 contactB = contact.sub(b.getPosition());
+
+        // Calculate relative velocity
+        Vector2 velocityA = a.getVelocity().add(contactA.cross(a.getAngularVelocity()));
+        Vector2 velocityB = b.getVelocity().add(contactB.cross(b.getAngularVelocity()));
+
+        Vector2 relativeVelocity = velocityB.sub(velocityA);
+
+        float normalVelocity = relativeVelocity.dot(normal);
+        if (normalVelocity > 0) return; // Test if bodies are moving apart
+
+
+        // Apply normal impulse
+        applyImpulse(a, b, contactA, contactB, normal, normalVelocity);
+
+        // Calculate tangent
+        Vector2 tangent = relativeVelocity.add(normal.mult(-relativeVelocity.dot(normal))).normalize();
+        float friction = Math.min(a.getFriction(), b.getFriction());
+
+        float tangentVelocity = relativeVelocity.dot(tangent) * friction;
+
+        // Apply tangent impulse
+        applyImpulse(a, b, contactA, contactB, tangent, tangentVelocity);
+    }
+
+    private void applyImpulse(Body a, Body b, Vector2 contactA, Vector2 contactB, Vector2 normal, float velocity)
+    {
+        Shape shapeA = a.getShape();
+        Shape shapeB = b.getShape();
+
+        float restitution = Math.min(a.getRestitution(), b.getRestitution());
+        float normalVelocity = -(1 + restitution) * velocity;
+
+        float normalA = contactA.cross(normal);
+        float normalB = contactB.cross(normal);
+
+        // Calculate impulse
+        float inverseMass = shapeA.getInverseMass() + shapeB.getInverseMass();
+        float inertiaA = (normalA * normalA) * shapeA.getInverseInertia();
+        float inertiaB = (normalB * normalB) * shapeB.getInverseInertia();
+
+        float impulseScale = normalVelocity / (inverseMass + inertiaA + inertiaB);
+        Vector2 impulse = normal.mult(impulseScale);
+
+        // Apply impulses
+        a.applyImpulse(impulse.negate(), contactA);
+        b.applyImpulse(impulse, contactB);
+    }
+
+    private Vector2 getContact(Body a, Body b)
+    {
+        float massA = a.getShape().getInverseMass();
+        float massB = b.getShape().getInverseMass();
+
+        float massSum = massA + massB;
+
+        // Calculate point in between start and end based on masses
+        Vector2 contactB = start.mult(massB / massSum);
+        Vector2 contactA = end.mult(massA / massSum);
+
+        return contactB.add(contactA);
     }
 
 }

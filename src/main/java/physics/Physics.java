@@ -59,13 +59,11 @@ public class Physics extends Parent
     private void createWorld()
     {
         world.addBody(new Body(new Vector2(0, -15), Rectangle.createStatic(40, 1)));
+        world.addBody(new Body(new Vector2(-20, 0), Rectangle.createStatic(1, 30)));
 
-        world.addBody(new Body(new Vector2(5, 2), 1, Circle.create(3)));
-        world.addBody(new Body(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
-
-//        world.addBody(new MovableBody(new Vector2(-1, 0), -1.3f, Rectangle.create(4, 2)));
-        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
-//        world.addBody(new MovableBody(new Vector2(5, 2), Circle.create(2)));
+//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
 
         // Start engine
         engine.start();
@@ -74,6 +72,20 @@ public class Physics extends Parent
 
     private void render()
     {
+        if (Math.random() < 0.2)
+        {
+            float angle = (float) (Math.random() * Math.PI * 2);
+
+            if (Math.random() < 0.5)
+            {
+                world.addBody(new Body(new Vector2(0, 5), angle, Circle.create((float) Math.random() + 0.5f)));
+            }
+            else
+            {
+                world.addBody(new Body(new Vector2(0, 5), angle, Rectangle.create((float) Math.random() * 3 + 1, (float) Math.random() * 2 + 1)));
+            }
+        }
+
         // Center origin
         gc.translate(WIDTH / 2f, HEIGHT / 2f);
 

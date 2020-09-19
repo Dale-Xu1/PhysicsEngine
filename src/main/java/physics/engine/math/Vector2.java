@@ -46,6 +46,11 @@ public class Vector2
         return (x * vector.y) - (y * vector.x);
     }
 
+    public Vector2 cross(float value)
+    {
+        return new Vector2(-y * value, x * value);
+    }
+
 
     public float magSq()
     {

@@ -47,6 +47,17 @@ public class Body
     }
 
 
+    public void applyForce(Vector2 force)
+    {
+        acceleration = acceleration.add(force);
+    }
+
+    public void applyImpulse(Vector2 impulse, Vector2 contact)
+    {
+        velocity = velocity.add(impulse.mult(shape.getInverseMass()));
+        angularVelocity += contact.cross(impulse) * shape.getInverseInertia();
+    }
+
     public void integrate(float dt, Vector2 gravity)
     {
         float inverseMass = shape.getInverseMass();
