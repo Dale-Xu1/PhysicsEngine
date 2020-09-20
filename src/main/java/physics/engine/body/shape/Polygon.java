@@ -12,21 +12,37 @@ public class Polygon extends Shape
         // Find farthest distance
         float maxDistanceSq = 0;
 
-        for (Vector2 vertex : vertices)
+        float area = 0;
+        float moment = 0;
+
+        for (int i = 0; i < vertices.length; i++)
         {
-            float distanceSq = vertex.magSq();
+            Vector2 vertex1 = vertices[i];
+            Vector2 vertex2 = vertices[(i + 1) % vertices.length];
+
+            // Test if distance is greatest from origin
+            float distanceSq = vertex1.magSq();
             if (distanceSq > maxDistanceSq)
             {
                 maxDistanceSq = distanceSq;
             }
+
+            // Calculate area of triangle
+            float cross = vertex1.cross(vertex2);
+            float triangleArea = cross / 2;
+            area += triangleArea;
+
+            // Calculate inertia
+            float x = (vertex1.x * vertex1.x) + (vertex2.x * vertex2.x) + (vertex1.x * vertex2.x);
+            float y = (vertex1.y * vertex1.y) + (vertex2.y * vertex2.y) + (vertex1.y * vertex2.y);
+            moment += cross * (x + y);
         }
 
         float distance = (float) Math.sqrt(maxDistanceSq);
 
-        float mass = density;
-        float inertia = density;
+        float mass = area * density;
+        float inertia = mass * moment / 12;
 
-        // TODO: Implement polygon mass calculation
         return new Polygon(vertices, mass, inertia, distance);
     }
 

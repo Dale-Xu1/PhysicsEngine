@@ -61,9 +61,9 @@ public class Physics extends Parent
         world.addBody(new Body(new Vector2(0, -15), 0.1f, Rectangle.createStatic(50, 1)));
         world.addBody(new Body(new Vector2(-25, 0), Rectangle.createStatic(1, 35)));
 
-//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
-//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
-//        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(2.5f, 1.5f),  new Vector2(-1.5f, 1.5f), new Vector2(-1.5f, -2.5f) })));
+        world.addBody(new Body(new Vector2(-1, 0), Polygon.create(new Vector2[] { new Vector2(-1, -1), new Vector2(1, -1), new Vector2(1, 1), new Vector2(0, 2), new Vector2(-1, 1) })));
 
         // Start engine
         engine.start();
