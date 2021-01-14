@@ -64,6 +64,11 @@ public class World
         bodies.add(body);
     }
 
+    public void removeBody(Body body)
+    {
+        bodies.remove(body);
+    }
+
     public List<Body> getBodies()
     {
         return bodies;
